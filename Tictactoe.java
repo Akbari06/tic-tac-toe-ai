@@ -24,7 +24,7 @@ public class Tictactoe{
     public void run(){
         System.out.println("\n\n");
         String input = p1;
-        String playerStatus = "";
+        String playAgainStatus = "";
         boolean endGame=false;
         setBoard();
 
@@ -34,8 +34,40 @@ public class Tictactoe{
             makeMove(input);
             input = changeTurn(input);
             movesMade++;
-        }while(!endGame);
+            if (movesMade==9 && winner().equals(" ")){
+                displayUpdated();
+                System.out.println("TIE");
+                playAgainStatus = askToPlayAgain();
 
+            }
+            else if (movesMade <= 9 && !winner().equals(" ")){
+                displayUpdated();
+                System.out.println("WINNER: \'" + winner() + "\'");
+                playAgainStatus = askToPlayAgain();
+            }
+
+            if(playAgainStatus.equalsIgnoreCase("no")){
+                endGame=true;
+            }
+            else if(playAgainStatus.equalsIgnoreCase("yes")){
+                playAgainStatus="";
+                movesMade=0;
+                input=p1;
+                setBoard();
+            }
+        }while(!endGame);
+        System.out.println("\n\n Thanks for playing, hope to see you again soon!!!");
+
+    }
+
+    public String askToPlayAgain(){
+        String statusCall = " ";
+        while (!statusCall.equalsIgnoreCase("yes") && 
+              !statusCall.equalsIgnoreCase("no")){
+            System.out.println("\n Would you like to play again? (yes/no) ");
+            statusCall = kb.next();
+        }
+        return statusCall;
     }
 
     public void makeMove(String move){
@@ -62,29 +94,26 @@ public class Tictactoe{
 
     public void setBoard(){
         System.out.println("\nWelcome to tictactoe");
-        for(int i=0; i<rows;i++){
-            for(int j=0;i<columns;j++){
+        for(int i=0; i<rows; i++){
+            for(int j=0; j<columns; j++){
                 board[i][j] = " ";
             }
         }
-
     }
 
     public void displayUpdated(){
         System.out.println("\n");
-        for (int i=0; i<rows;i++){
-            for (int j=0;j<columns;j++){
-                System.out.println("["+ board[i][j] + "]");
+        for (int i=0; i<rows; i++){
+            for (int j=0; j<columns; j++){
+                System.out.print("[" + board[i][j] + "]");
             }
             System.out.println("\n");
         }
         System.out.println("\n");
-
-
     }
 
     public String changeTurn(String turn){
-        if (turn ==p1){
+        if (turn.equals(p1)){
             turn = p2;
         } else{
             turn = p1;
@@ -92,6 +121,26 @@ public class Tictactoe{
         return turn; 
     }
 
-    
-  
+    public String winner(){
+        // check rows
+        for (int i=0; i<rows; i++){
+            if(!board[i][0].equals(" ") && board[i][0].equals(board[i][1]) && board[i][0].equals(board[i][2])){
+                return board[i][0];
+            }
+        }
+        // check columns
+        for (int i=0; i<columns; i++){
+            if(!board[0][i].equals(" ") && board[0][i].equals(board[1][i]) && board[0][i].equals(board[2][i])){
+                return board[0][i];
+            }
+        }
+        // check diagonals
+        if (!board[1][1].equals(" ") && 
+            ((board[0][0].equals(board[1][1]) && board[0][0].equals(board[2][2])) || 
+             (board[0][2].equals(board[1][1]) && board[0][2].equals(board[2][0])))) {
+            return board[1][1];
+        }
+
+        return " ";
+    }
 }
