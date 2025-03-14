@@ -33,8 +33,18 @@ public class Board {
                 if(board[i][j] == null){
                     board[i][j] = new Square();
                 }
+                g.setColor(Color.WHITE);
+                g.fillRect(i*squareLength+100,j*squareLength+90,squareLength,squareLength);
+                ((Graphics2D)g).setStroke(new  BasicStroke(4));
+                g.setColor((Color.BLACK));
+                g.drawRect(i*squareLength+100, j*squareLength+90,squareLength+1,squareLength+1);
+                g.drawString(board[i][j].getPiece().getValue(), i*squareLength+95+(squareLength/5),j*squareLength+160+(squareLength/2));
+
             }  
         }
-    }
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial",Font.BOLD,60));
+        g.drawString("WELCOME t0 tictactoe!!",50,60);
+        }
     
 }
