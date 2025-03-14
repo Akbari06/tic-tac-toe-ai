@@ -81,7 +81,9 @@ public class Game extends Canvas implements Runnable{
         g.setColor((new Color(46,64,83)));
         g.fillRect(0, 0, Frame.WIDTH, Frame.HEIGHT);
         // Add your drawing code here
-        
+        if (board!=null){
+            board.draw(g);
+        }
         bs.show();
         g.dispose(); // Should dispose the Graphics object, not BufferStrategy
     }
