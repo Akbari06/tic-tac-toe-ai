@@ -2,35 +2,39 @@ public class Square {
     private Piece piece;
     private int row;
     private int col;
-    public Square(){
-        row=-1;
-        col=-1;
-        piece=new Piece(" ",-1,-1);
+
+    public Square(int row, int col, Piece piece) {
+        this.row = row;
+        this.col = col;
+        this.piece = piece;
     }
 
-    public Square(int row, int col, Piece piece){
-        this.row=row;
-        this.col=col;
-        this.piece=piece;
+    public boolean equals(Object o) {
+        if (!(o instanceof Square))
+            return false;
+        Square s = (Square) o;
+        if (getPiece().equals(s.getPiece()))
+            return true;
+        return false;
     }
 
-    public String toString(){
-        return "[row: " + row+ ", col: " + col+ "]";
+    public String toString() {
+        return "[row: " + row + ", col: " + col + "]";
     }
 
-    public int getRow(){
+    public int getRow() {
         return row;
     }
 
-    public int getCol(){
+    public int getCol() {
         return col;
     }
 
-    public Piece getPiece(){
+    public Piece getPiece() {
         return piece;
     }
 
-    public void setCol(Piece piece){
+    public void setPiece(Piece piece) {
         this.piece = piece;
     }
 }
